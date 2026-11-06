@@ -1,0 +1,59 @@
+plugins {
+    id 'fabric-loom' version '1.19.3'
+    id 'maven-publish'
+}
+
+version = "${property('mod_version')}+${stonecutter.current.version}"
+group = property('maven_group')
+
+base { archivesName = property('archives_base_name') }
+
+repositories {
+    maven { url = "https://maven.fabricmc.net/" }
+    maven { url = "https://maven.terraformersmc.com/releases/" }
+    mavenCentral()
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${property('dep.minecraft')}"
+    mappings "net.fabricmc:yarn:${property('dep.yarn')}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${property('dep.loader')}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${property('dep.fapi')}"
+    // ModMenu 只是可选集成：不打包、不强制用户装，运行时靠 entrypoint 探测。
+    modCompileOnly("com.terraformersmc:modmenu:${property('dep.modmenu')}") { transitive = false }
+}
+
+def javaVer = Integer.parseInt(property('dep.javalevel'))
+def mcRange = property('meta.mc_range')
+def javaReq = property('meta.java')
+def compat = "JAVA_" + javaVer
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = javaVer
+    it.options.encoding = "UTF-8"
+}
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(javaVer) }
+    withSourcesJar()
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mc_range", mcRange
+    inputs.property "java_req", javaReq
+    inputs.property "compat_level", compat
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version, "mc_range": mcRange, "java_req": javaReq
+    }
+    filesMatching("fouryctrl.mixins.json") {
+        expand "compat_level": compat
+    }
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.base.archivesName.get()}" }
+    }
+}

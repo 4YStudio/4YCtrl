@@ -1,0 +1,28 @@
+// 26.x 专用工程：26.x 起 Mojang 取消混淆（官方名 = 运行时名），
+// 既没有 yarn 也没有 intermediary，所以不能与根工程 src/（9 个 yarn 版本）共用版本轴。
+// 本工程自己也用 Stonecutter 出 26.1 / 26.2 / 26.3 三个版本。
+//
+// 26.1.1 与 26.1.2 的字节码和 26.1 只差 3 个 / 9 个与本模组无关的类
+// （PlayerEntry / DetectedVersion / SharedConstants / Checkbox* / reporting），
+// 所以 26.1 节点产物把 minecraft 依赖范围放宽成 [26.1,26.2) 即可一并覆盖。
+pluginManagement {
+    repositories {
+        maven { url = "https://maven.fabricmc.net/" }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id "dev.kikugie.stonecutter" version "0.9.8"
+}
+
+stonecutter {
+    kotlinController = false
+    centralScript = "build.gradle"
+    create(rootProject) {
+        versions "26.1", "26.2", "26.3"
+    }
+}
+
+rootProject.name = "fouryctrl-mc26"

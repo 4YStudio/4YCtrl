@@ -1,0 +1,6 @@
+plugins {
+    id "dev.kikugie.stonecutter"
+}
+
+// 当前激活版本（IDE 里默认展开哪个节点）。
+stonecutter.active file("versions/current")

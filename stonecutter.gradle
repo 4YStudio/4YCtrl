@@ -1,0 +1,8 @@
+plugins {
+    id "dev.kikugie.stonecutter"
+}
+
+// 当前激活版本：改这个文件（或在 IDE 里切换）即可。
+// 打包前注意：激活版本会绕过 stonecutter 预处理直接编译原始源码，
+// 产物会包含未剥离的双分支（条件注释失效）。详见 package.sh 的 CURRENT 保护逻辑。
+stonecutter.active file("versions/current")

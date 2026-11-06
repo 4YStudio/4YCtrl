@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.fouryctrl.mixin",
+  "compatibilityLevel": "${compat_level}",
+  "client": [
+    "GameMenuScreenMixin",
+    "HandledScreenAccessor",
+    "InGameHudMixin",
+    "InputAccessor",
+    "KeyboardInputMixin",
+    "MouseAccessor",
+    "MouseMixin",
+    "RecipeBookResultsAccessor",
+    "RecipeBookWidgetAccessor",
+    "RenderSystemMixin",
+    "ScreenAccessor",
+    "ScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

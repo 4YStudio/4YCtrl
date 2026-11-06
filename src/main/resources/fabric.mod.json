@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "fouryctrl",
+  "version": "${version}",
+  "name": "4YCtrl",
+  "description": "让 Fold Craft Launcher（FCL）的「SDL 直通」模式下，真实蓝牙/USB 手柄能直接驱动 Minecraft —— 模拟量摇杆、独立视角，不再受 FCL 映射模式的方向量化限制。",
+  "authors": [
+    "4YCtrl"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.fouryctrl.FourYCtrl"
+    ],
+    "modmenu": [
+      "com.fouryctrl.client.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "fouryctrl.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": "${mc_range}",
+    "java": "${java_req}",
+    "fabric-api": "*"
+  }
+}

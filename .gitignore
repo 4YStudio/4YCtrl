@@ -1,0 +1,45 @@
+# ---- Gradle ----
+.gradle/
+mc26/.gradle/
+build/
+mc26/build/
+# Stonecutter 的每个版本节点都会各自生成 build/ 与 run/
+versions/*/build/
+versions/*/run/
+mc26/versions/*/build/
+mc26/versions/*/run/
+run/
+out/
+*.class
+
+# ---- Stonecutter / Loom 缓存 ----
+.stonecutter/
+.kotlin/
+*.hprof
+hs_err_pid*.log
+replay_pid*.log
+crash-*.txt
+
+# ---- 打包产物 ----
+# package.sh 生成：12 个 jar + SHA256SUMS + README.txt。
+# 想在仓库里留一份发布件就把下面这行删掉（jar 也可以进 Git LFS）。
+/dist/
+
+# ---- Python（tools/ 下的校验脚本生成的字节码）----
+__pycache__/
+*.py[cod]
+
+# ---- 编辑器 / 操作系统 ----
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.DS_Store
+Thumbs.db
+*~
+
+# 注意：
+#   mc26/src/main/java/com/fouryctrl/{config,sdl} 与 resources 里的资源是
+#   **符号链接**，指向根工程 src/，属于源码，必须提交，不要加进忽略表。
+#   versions/current 与 mc26/versions/current 是纯文本的版本指针，也要提交。
